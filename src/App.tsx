@@ -1,23 +1,31 @@
+import { useState } from 'react';
 import MovieForm from './Components/MovieForm/MovieForm';
-import {Movie} from './types';
-import {useState} from 'react';
+import { Movie } from './types';
 import './App.css';
 import MovieCard from './Components/MovieCard/MovieCard';
 
 const App = () => {
-  const [movie, setMovie] = useState<Movie[]>([
-    {name: 'Lol', id: 1},
-    {name: 'Test', id: 2},
+  const [movies, setMovies] = useState<Movie[]>([
+    { name: 'Lol', id: 1 },
+    { name: 'Test', id: 2 },
   ]);
 
   const addMovie = (movie: Movie) => {
-    setMovie((prevState) => [...prevState, movie]);
+    setMovies((prevState) => [...prevState, movie]);
   };
 
   const removeMovie = (id: number) => {
-    setMovie((prevState) => {
-      return prevState.filter((t) => t.id !== id);
+    setMovies((prevState) => {
+      return prevState.filter((m) => m.id !== id);
     });
+  };
+
+  const updateMovieName = (id: number, newName: string) => {
+    setMovies((prevState) =>
+      prevState.map((movie) =>
+        movie.id === id ? { ...movie, name: newName } : movie
+      )
+    );
   };
 
   return (
@@ -27,19 +35,18 @@ const App = () => {
           <div className="col-6">
             <MovieForm onSubmit={addMovie} />
             <div className="pt-4 d-flex flex-column gap-2">
-              {movie.map((movie) => (
+              {movies.map((movie) => (
                 <MovieCard
                   key={movie.id}
                   id={movie.id}
                   name={movie.name}
                   removeMovie={removeMovie}
+                  updateMovieName={updateMovieName}
                 />
               ))}
             </div>
           </div>
-          <div className="col-6">
-
-          </div>
+          <div className="col-6"></div>
         </div>
       </div>
     </>
