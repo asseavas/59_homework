@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface Props {
   id: number;
@@ -10,6 +10,10 @@ interface Props {
 const MovieCard: React.FC<Props> = React.memo(({ id, name, removeMovie, updateMovieName }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [newName, setNewName] = useState(name);
+
+  useEffect(() => {
+    setNewName(name);
+  }, [name]);
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -34,9 +38,14 @@ const MovieCard: React.FC<Props> = React.memo(({ id, name, removeMovie, updateMo
               <span>{name}</span>
             )}
           </div>
-          <button className="btn btn-primary ms-auto" onClick={handleEdit} disabled={isEditing}>Edit</button>
-          {isEditing && <button className="btn btn-success ms-2" onClick={handleSave}>Save</button>}
-          <button className="btn btn-danger ms-2" onClick={() => removeMovie(id)}>Delete</button>
+          {isEditing ? (
+            <button className="btn btn-success ms-auto" onClick={handleSave}>Save</button>
+          ) : (
+            <>
+              <button className="btn btn-primary ms-auto" onClick={handleEdit}>Edit</button>
+              <button className="btn btn-danger ms-2" onClick={() => removeMovie(id)}>Delete</button>
+            </>
+          )}
         </div>
       </div>
     </div>
