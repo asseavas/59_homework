@@ -44,7 +44,7 @@ const Jokes = () => {
   return (
     <div>
       {joke && <JokeCard joke={getJokeText(joke)} />}
-      <button onClick={fetchJoke}>Get New Joke</button>
+      <button className="btn btn-primary mt-4" onClick={fetchJoke}>Get New Joke</button>
     </div>
   );
 };
