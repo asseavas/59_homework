@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import MovieForm from './Components/MovieForm/MovieForm';
 import { Movie } from './types';
-import './App.css';
 import MovieCard from './Components/MovieCard/MovieCard';
+import Jokes from './Containers/Jokes/Jokes';
+import './App.css';
 
 const App = () => {
   const [movies, setMovies] = useState<Movie[]>([
-    { name: 'Lol', id: 1 },
-    { name: 'Test', id: 2 },
+    { name: 'Alice in Borderland', id: 1 },
+    { name: 'Harry Potter', id: 2 },
+    { name: 'Dune', id: 3 },
   ]);
 
   const addMovie = (movie: Movie) => {
@@ -46,7 +48,9 @@ const App = () => {
               ))}
             </div>
           </div>
-          <div className="col-6"></div>
+          <div className="col-6">
+            <Jokes />
+          </div>
         </div>
       </div>
     </>
